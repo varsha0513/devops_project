@@ -1,0 +1,12 @@
+﻿#cloud-config
+package_update: true
+packages:
+  - nginx
+  - python3-venv
+  - python3-pip
+  - rsync
+  - curl
+
+runcmd:
+  - mkdir -p /var/www/smartcampus /opt/smartcampus
+  - chown -R azureuser:azureuser /var/www/smartcampus /opt/smartcampus
