@@ -1,0 +1,58 @@
+# Python
+backend/venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# SQLite databases & temp databases
+backend/*.db
+backend/*.db-journal
+test_*.db
+
+# Node & Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+
+# Environment variables
+backend/.env
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# All environment secrets
+.env
+**/.env
+frontend/.env
+backend/.env.*
+
+# Python virtual environments
+backend/.venv/
+.venv/
+
+# Frontend environment files
+frontend/.env.*
+
+# Generated files
+*.db
+*.db-journal
+node_modules/
+dist/
+
+# Terraform state and local data
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+
+# Secret keys
+*.pem
+*.key
