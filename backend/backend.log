@@ -1,8 +1,0 @@
-INFO:     Will watch for changes in these directories: ['C:\\Users\\varsh\\Smart_campus_issue\\backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [13260] using WatchFiles
-INFO:     Started server process [33640]
-INFO:     Waiting for application startup.
-INFO:smart_campus:Initializing database tables...
-INFO:smart_campus:Checking if database seeding is needed...
-INFO:     Application startup complete.

@@ -12,3 +12,5 @@ __pycache__/
 *.pem
 azure_vm_key
 azure_vm_key.pub
+logs/
+*.log
