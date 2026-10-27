@@ -28,11 +28,11 @@ pipeline {
                 powershell '''
                     $ErrorActionPreference = "Stop"
                     Set-Location backend
-                    if (Test-Path .venv-ci) { Remove-Item .venv-ci -Recurse -Force }
-                    python -m venv .venv-ci
-                    .\.venv-ci\Scripts\pip.exe install -r requirements.txt
+                    if (Test-Path ./.venv-ci) { Remove-Item ./.venv-ci -Recurse -Force }
+                    python -m venv ./.venv-ci
+                    ./.venv-ci/Scripts/pip.exe install -r requirements.txt
                     if ($LASTEXITCODE -ne 0) { exit 1 }
-                    .\.venv-ci\Scripts\python.exe -m pytest -q
+                    ./.venv-ci/Scripts/python.exe -m pytest -q
                     if ($LASTEXITCODE -ne 0) { exit 1 }
                 '''
             }
@@ -61,7 +61,7 @@ pipeline {
                         if ($LASTEXITCODE -ne 0) { exit 1 }
                         icacls $env:SSH_KEY /grant:r "$($env:USERNAME):(R)"
                         if ($LASTEXITCODE -ne 0) { exit 1 }
-                        powershell -ExecutionPolicy Bypass -File deploy\\deploy.ps1 -VmIp $env:VM_IP -KeyPath $env:SSH_KEY -SkipBuild
+                        powershell -ExecutionPolicy Bypass -File deploy/deploy.ps1 -VmIp $env:VM_IP -KeyPath $env:SSH_KEY -SkipBuild
                         if ($LASTEXITCODE -ne 0) { exit 1 }
                     '''
                 }
