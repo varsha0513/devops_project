@@ -57,9 +57,12 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'azure-vm-ssh', keyFileVariable: 'SSH_KEY')]) {
                     powershell '''
                         $ErrorActionPreference = "Stop"
+                        $sid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
                         icacls $env:SSH_KEY /inheritance:r
                         if ($LASTEXITCODE -ne 0) { exit 1 }
-                        icacls $env:SSH_KEY /grant:r "$($env:USERNAME):(R)"
+                        icacls $env:SSH_KEY /grant:r "*$sid:(R)"
+                        if ($LASTEXITCODE -ne 0) { exit 1 }
+                        icacls $env:SSH_KEY
                         if ($LASTEXITCODE -ne 0) { exit 1 }
                         powershell -ExecutionPolicy Bypass -File deploy/deploy.ps1 -VmIp $env:VM_IP -KeyPath $env:SSH_KEY -SkipBuild
                         if ($LASTEXITCODE -ne 0) { exit 1 }
