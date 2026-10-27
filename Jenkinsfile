@@ -60,7 +60,7 @@ pipeline {
                         $sid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
                         icacls $env:SSH_KEY /inheritance:r
                         if ($LASTEXITCODE -ne 0) { exit 1 }
-                        icacls $env:SSH_KEY /grant:r "*$sid:(R)"
+                        icacls $env:SSH_KEY /grant:r ('*' + $sid + ':(R)')
                         if ($LASTEXITCODE -ne 0) { exit 1 }
                         icacls $env:SSH_KEY
                         if ($LASTEXITCODE -ne 0) { exit 1 }
