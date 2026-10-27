@@ -14,3 +14,5 @@ azure_vm_key
 azure_vm_key.pub
 logs/
 *.log
+
+.venv-ci/

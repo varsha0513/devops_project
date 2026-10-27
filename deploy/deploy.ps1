@@ -1,5 +1,5 @@
 ﻿param(
-  [switch]\,
+  [switch]$SkipBuild,
   [string]$VmIp = "40.80.93.49",
   [string]$KeyPath = "$HOME\.ssh\azure_vm_key"
 )
@@ -7,21 +7,24 @@
 $ErrorActionPreference = "Stop"
 
 function Invoke-Ssh {
-  param(
-  [switch]\,[string]$Cmd)
+  param([string]$Cmd)
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=NUL -i $KeyPath azureuser@$VmIp $Cmd
   if ($LASTEXITCODE -ne 0) { throw "SSH command failed: $Cmd" }
 }
 
-Push-Location "C:\Users\varsh\Smart_campus_issue\frontend"
-try {
-  npm ci
-  if ($LASTEXITCODE -ne 0) { throw "npm ci failed" }
-  $env:VITE_API_BASE_URL = '/'
-  npm run build
-  if ($LASTEXITCODE -ne 0) { throw "npm run build failed" }
-} finally {
-  Pop-Location
+if (-not $SkipBuild) {
+  Push-Location "C:\Users\varsh\Smart_campus_issue\frontend"
+  try {
+    npm ci
+    if ($LASTEXITCODE -ne 0) { throw "npm ci failed" }
+    $env:VITE_API_BASE_URL = '/'
+    npm run build
+    if ($LASTEXITCODE -ne 0) { throw "npm run build failed" }
+  } finally {
+    Pop-Location
+  }
+} else {
+  Write-Host "Skipping frontend build (using existing frontend/dist)"
 }
 
 Invoke-Ssh "sudo mkdir -p /var/www/smartcampus /opt/smartcampus && sudo chown -R azureuser:azureuser /var/www/smartcampus /opt/smartcampus"
