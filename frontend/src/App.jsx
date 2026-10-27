@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+﻿import { useState, useEffect, useCallback } from 'react';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import DashboardView from './pages/DashboardView';
@@ -283,6 +283,7 @@ export default function App() {
           </button>
         </aside>
       )}
+    <footer className="app-footer">Deployed automatically via Jenkins CI/CD on Azure - version 2</footer>
     </div>
   );
 }
