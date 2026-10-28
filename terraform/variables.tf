@@ -20,6 +20,11 @@ variable "prefix" {
   description = "Prefix for resources"
   type        = string
   default     = "smartcampus"
+
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9-]{1,20}$", var.prefix))
+    error_message = "Prefix must match ^[a-z][a-z0-9-]{1,20}$ (start with letter, lowercase letters/digits/hyphens, length 2-21)."
+  }
 }
 
 variable "vm_size" {
